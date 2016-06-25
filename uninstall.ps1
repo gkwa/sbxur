@@ -73,14 +73,14 @@ Get-Process |
   } | % { $_.Kill() }
 
 foreach ($uninstaller in $uninstallers) {
-	if(Test-Path($uninstaller)){
+	if(Test-Path $uninstaller){
 		Start-Process $uninstaller /S
 	}
 }
 
 Set-Location $env:temp
 foreach ($filedir in $deletelist) {
-	if(Test-Path($filedir)){
+	if(Test-Path $filedir){
 		remove-item $filedir -recurse
 	}
 }
