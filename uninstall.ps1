@@ -36,6 +36,9 @@ $deletelist = 'C:\Streambox\AJA Diagnostics',
 "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\Streambox\Streambox ACT-L3.lnk",
 "$env:PUBLIC\Desktop\Streambox ACT-L3.lnk"
 
+# SBT3-9400: Apache must run as console app, so start it from shortcut
+$deletelist += "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\Apache HTTP Server.lnk"
+
 # fixme: how to remove this
 # C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Streambox
 
