@@ -28,13 +28,6 @@ powershell clean whitespace
 * TODO deal with \Run key, currently does nothing
 * TODO deal with Streambox folder, mabye zip it up
 * TODO deal with Apache_old.zip, Apache_old1.zip
-* TODO its soo slow, add disable proxy to fix
-
-#+BEGIN_SRC
-powershell -noprofile -executionpolicy unrestricted -command "(new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/TaylorMonacelli/MachineFactory/5dbe2f6e08a4506885043fd94bd7efa4189ef0ca/vagrant/scripts/proxy-disable.ps1','proxy-disable.ps1')"
-powershell -noprofile -executionpolicy unrestricted -file proxy-disable.ps1
-taskkill /F /IM iexplore.exe
-#+END_SRC
 
 #>
 
@@ -109,4 +102,28 @@ foreach ($filedir in $deletelist) {
 	if(Test-Path $filedir){
 		remove-item $filedir -recurse
 	}
+}
+
+# #############################
+# * TODO its soo slow, add disable proxy to fix
+# #############################
+$run_sentinal = 'c:\windows\temp\disable_proxy_block.txt'
+$disable_proxy_block = {
+    Set-Location $env:TEMP
+	powershell -noprofile -executionpolicy unrestricted -command "(new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/TaylorMonacelli/MachineFactory/5dbe2f6e08a4506885043fd94bd7efa4189ef0ca/vagrant/scripts/proxy-disable.ps1','proxy-disable.ps1')"
+	powershell -noprofile -executionpolicy unrestricted -file proxy-disable.ps1
+	& taskkill /F /IM iexplore.exe
+
+	# this is a slow block, so don't keep running it over and over
+	$result = New-Item $run_sentinal -type file
+}
+
+if(!(test-path $run_sentinal)){
+   & $disable_proxy_block
+}
+
+$lastWrite = (get-item $run_sentinal).LastWriteTime
+$timespan = new-timespan -minutes 10
+if (((get-date) - $lastWrite) -gt $timespan) {
+   & $disable_proxy_block
 }
