@@ -70,7 +70,7 @@ Get-Process |
 	  $_.Name -like '*encoder*' -or
 	  $_.Name -like 'httpd' -or
 	  $_.Path -like '*streambox*'
-  } | % { $_.Kill() }
+  } | % { try{ $_.Kill() }catch{} }
 
 foreach ($uninstaller in $uninstallers) {
 	if(Test-Path $uninstaller){
