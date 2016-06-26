@@ -1,5 +1,10 @@
 <#
 
+* TODO Kill off parent processes that have open handles on folders
+
+Use handle.exe to detect open file in filder I want to delete and kill
+parent process.
+
 * TODO deal with write protect, currently script doesn't check it
 * TODO deal with 9400 by getting one-off shortcuts
 * TODO deal with \Run key, currently does nothing
