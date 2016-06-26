@@ -6,6 +6,24 @@ Use handle.exe to detect open file in filder I want to delete and kill
 parent process.
 
 * TODO deal with write protect, currently script doesn't check it
+
+Parse this
+#+BEGIN_SRC
+C:\Windows>fbwfmgr
+File-based write filter configuration for the current session:
+    filter state: disabled.
+
+File-based write filter configuration for the next session:
+    filter state: disabled.
+
+C:\Windows>
+#+END_SRC
+
+** powershell clean whitespace
+
+powershell
+powershell clean whitespace
+
 * TODO deal with 9400 by getting one-off shortcuts
 * TODO deal with \Run key, currently does nothing
 * TODO deal with Streambox folder, mabye zip it up
@@ -39,7 +57,7 @@ $deletelist = 'C:\Streambox\AJA Diagnostics',
 # SBT3-9400: Apache must run as console app, so start it from shortcut
 $deletelist += "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\Apache HTTP Server.lnk"
 
-# fixme: how to remove this
+# fixme: how to remove this?
 # C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Streambox
 
 # fixme: delete reg keys too
