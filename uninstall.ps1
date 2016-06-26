@@ -31,6 +31,12 @@ powershell clean whitespace
 
 #>
 
+Function Test-RegistryValue($regkey, $name) {
+	Get-ItemProperty $regkey $name -ErrorAction SilentlyContinue | Out-Null
+	$?
+}
+
+
 $uninstallers = `
   'C:\ABN\Uninstall.exe',
 'C:\Streambox\SLS_Decoder\Uninstall.exe',
@@ -53,9 +59,20 @@ $deletelist += "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\A
 # fixme: how to remove this?
 # C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Streambox
 
-# fixme: delete reg keys too
-# 'hklm:\Software\Microsoft\Windows\CurrentVersion\Run\sleep_before_startup'
-# 'hklm:\Software\Microsoft\Windows\CurrentVersion\Run\Streambox ACT-L3'
+# remove-itemproperty -path hklm:\Software\Microsoft\Windows\CurrentVersion\Run -name 'sleep_before_startup' | Out-Null
+$key = 'hklm:\Software\Microsoft\Windows\CurrentVersion\Run'
+$name = 'sleep_before_startup'
+if(Test-RegistryValue($key, $name)){
+	remove-itemproperty -path $key -name $name | Out-Null
+}
+
+# remove-itemproperty -path hklm:\Software\Microsoft\Windows\CurrentVersion\Run -name 'Streambox ACT-L3' | Out-Null
+$key = 'hklm:\Software\Microsoft\Windows\CurrentVersion\Run'
+$name = 'Streambox ACT-L3'
+if(Test-RegistryValue($key, $name)){
+	remove-itemproperty -path $key -name $name | Out-Null
+}
+
 
 # Kill cmd.exe if its the parent of transport or encoder
 Get-Process | Where-Object {
