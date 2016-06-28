@@ -132,7 +132,7 @@ $disable_proxy_block = {
 	& taskkill /F /IM iexplore.exe
 
 	# this is a slow block, so don't keep running it over and over
-	$result = New-Item $run_sentinal -type file
+	$result = New-Item $run_sentinal -type file -Force
 }
 
 if(!(test-path $run_sentinal)){
