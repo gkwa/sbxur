@@ -122,6 +122,12 @@ foreach ($filedir in $deletelist) {
 }
 
 # #############################
+# TODO
+# #############################
+# remove this
+# HKEY_LOCAL_MACHINE\SOFTWARE\Apache Software Foundation\Apache\2.2.18
+
+# #############################
 # * TODO its soo slow, add disable proxy to fix
 # #############################
 $run_sentinal = 'c:\windows\temp\disable_proxy_block.txt'
