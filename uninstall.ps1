@@ -25,7 +25,6 @@ powershell
 powershell clean whitespace
 
 * TODO deal with 9400 by getting one-off shortcuts
-* TODO deal with \Run key, currently does nothing
 * TODO deal with Streambox folder, mabye zip it up
 * TODO deal with Apache_old.zip, Apache_old1.zip
 
@@ -172,3 +171,10 @@ if(test-path $ini2) { rename-item $ini2 $ini1 }
 $ini1 = "$env:windir\win.ini.1"
 $ini2 = "$env:windir\win.ini"
 if(test-path $ini2) { rename-item $ini2 $ini1 }
+
+# #############################
+# Remove \Run values from registry
+# #############################
+$key = "hklm:\Software\Microsoft\Windows\CurrentVersion\Run"
+Remove-ItemProperty -ea SilentlyContinue -Path $key -Name "Streambox ACT-L3"
+Remove-ItemProperty -ea SilentlyContinue -Path $key -Name sleep_before_startup
