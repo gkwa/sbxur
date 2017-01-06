@@ -151,28 +151,6 @@ if (((get-date) - $lastWrite) -gt $timespan) {
 }
 
 # #############################
-# Remove win.ini
-# #############################
-$ini1 = "$env:windir\win.ini.4"
-if(test-path $ini1) { remove-item -force $ini1; }
-
-$ini1 = "$env:windir\win.ini.4"
-$ini2 = "$env:windir\win.ini.3"
-if(test-path $ini2) { rename-item $ini2 $ini1 }
-
-$ini1 = "$env:windir\win.ini.3"
-$ini2 = "$env:windir\win.ini.2"
-if(test-path $ini2) { rename-item $ini2 $ini1 }
-
-$ini1 = "$env:windir\win.ini.2"
-$ini2 = "$env:windir\win.ini.1"
-if(test-path $ini2) { rename-item $ini2 $ini1 }
-
-$ini1 = "$env:windir\win.ini.1"
-$ini2 = "$env:windir\win.ini"
-if(test-path $ini2) { rename-item $ini2 $ini1 }
-
-# #############################
 # Remove \Run values from registry
 # #############################
 $key = "hklm:\Software\Microsoft\Windows\CurrentVersion\Run"
