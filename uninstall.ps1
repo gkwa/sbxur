@@ -93,9 +93,9 @@ Get-Process | Where-Object {
         Get-Process -id $parentpid |
           Where-Object {
               $_.Name -like 'cmd*'
-          } | Stop-Process
+          } | Stop-Process -force
     }
-    Stop-Process $mypid
+    Stop-Process -force $mypid
 }
 
 # Kill processes before delete
