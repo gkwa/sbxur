@@ -89,13 +89,17 @@ Get-Process | Where-Object {
         $grandparentpid=(gwmi win32_process -Filter $filter).parentprocessid
         write-host "pid=$mypid parentpid=$parentpid parentbatpid=$parentbatpid grandparentpid=$grandparentpid "
 
-        # Kill parent process only if its cmd.exe
-        Get-Process -id $parentpid |
-          Where-Object {
-              $_.Name -like 'cmd*'
-          } | Stop-Process -force
-    }
-    Stop-Process -force $mypid
+		try{
+			# Kill parent process only if its cmd.exe
+			Get-Process -id $parentpid |
+			  Where-Object {
+				  $_.Name -like 'cmd*'
+			  } | Stop-Process -force
+		} catch [Microsoft.PowerShell.Commands.ProcessCommandException] {
+			"Caught by Exception Type: Process $parentpid is missing"
+		}
+		Stop-Process -force $mypid
+	}
 }
 
 # Kill processes before delete
