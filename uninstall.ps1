@@ -127,30 +127,6 @@ foreach ($filedir in $deletelist) {
 # HKEY_LOCAL_MACHINE\SOFTWARE\Apache Software Foundation\Apache\2.2.18
 
 # #############################
-# * TODO its soo slow, add disable proxy to fix
-# #############################
-$run_sentinal = 'c:\windows\temp\disable_proxy_block.txt'
-$disable_proxy_block = {
-    Set-Location $env:TEMP
-	powershell -noprofile -executionpolicy unrestricted -command "(new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/TaylorMonacelli/MachineFactory/5dbe2f6e08a4506885043fd94bd7efa4189ef0ca/vagrant/scripts/proxy-disable.ps1','proxy-disable.ps1')"
-	powershell -noprofile -executionpolicy unrestricted -file proxy-disable.ps1
-	& taskkill /F /IM iexplore.exe
-
-	# this is a slow block, so don't keep running it over and over
-	$result = New-Item $run_sentinal -type file -Force
-}
-
-if(!(test-path $run_sentinal)){
-   & $disable_proxy_block
-}
-
-$lastWrite = (get-item $run_sentinal).LastWriteTime
-$timespan = new-timespan -minutes 10
-if (((get-date) - $lastWrite) -gt $timespan) {
-   & $disable_proxy_block
-}
-
-# #############################
 # Remove \Run values from registry
 # #############################
 $key = "hklm:\Software\Microsoft\Windows\CurrentVersion\Run"
