@@ -91,7 +91,7 @@ Get-Process | Where-Object {
 
 		try{
 			# Kill parent process only if its cmd.exe
-			Get-Process -id $parentpid |
+			Get-Process -id $parentpid -EA 0 |
 			  Where-Object {
 				  $_.Name -like 'cmd*'
 			  } | Stop-Process -force
