@@ -132,3 +132,7 @@ foreach ($filedir in $deletelist) {
 $key = "hklm:\Software\Microsoft\Windows\CurrentVersion\Run"
 Remove-ItemProperty -ea SilentlyContinue -Path $key -Name "Streambox ACT-L3"
 Remove-ItemProperty -ea SilentlyContinue -Path $key -Name sleep_before_startup
+
+# Save license, but delete all other files
+Get-ChildItem -Path  'C:\Streambox' -Recurse -exclude '*.lic' |
+  Select -ExpandProperty FullName | Remove-Item -force
