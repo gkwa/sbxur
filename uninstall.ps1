@@ -134,5 +134,6 @@ Remove-ItemProperty -ea SilentlyContinue -Path $key -Name "Streambox ACT-L3"
 Remove-ItemProperty -ea SilentlyContinue -Path $key -Name sleep_before_startup
 
 # Save license, but delete all other files
-Get-ChildItem -Path  'C:\Streambox' -Recurse -exclude '*.lic' |
-  Select -ExpandProperty FullName | Remove-Item -force
+Get-ChildItem -Recurse -Path  'C:\Streambox' `
+  -Exclude '*ABN*|*\SLS_Decoder*|*.lic' |
+  Sort-Object -Property FullName -Descending | Remove-Item -force
