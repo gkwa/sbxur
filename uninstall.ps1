@@ -87,7 +87,7 @@ Get-Process | Where-Object {
     if($parentpid) {
         $filter = 'processid = {0}' -f $parentpid
         $grandparentpid=(gwmi win32_process -Filter $filter).parentprocessid
-        write-host "pid=$mypid parentpid=$parentpid parentbatpid=$parentbatpid grandparentpid=$grandparentpid "
+#        write-host "pid=$mypid parentpid=$parentpid parentbatpid=$parentbatpid grandparentpid=$grandparentpid "
 
         # Kill parent process only if its cmd.exe
         Get-Process -id $parentpid -EA 0 |
