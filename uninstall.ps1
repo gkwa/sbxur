@@ -30,6 +30,10 @@ powershell clean whitespace
 
 #>
 
+# Move out of c:/Streambox or C:/Apache or other folder that will be
+# removed.  Don't let current shell affect uninstall setps
+Set-Location $env:TEMP
+
 Function Test-RegistryValue($regkey, $name) {
 	Get-ItemProperty $regkey $name -ErrorAction SilentlyContinue | Out-Null
 	$?
